@@ -4,4 +4,6 @@
     <string name="title_nav_devices">Устройства</string>
     <string name="title_nav_history">История измерений</string>
 
+    <string name="device_conneced">Устройство подключено</string>
+
 </resources>
