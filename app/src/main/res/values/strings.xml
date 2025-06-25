@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">CardexPulseoximeterApp</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">Кардекс пульсоксиметр</string>
+
+    <string name="title_nav_devices">Устройства</string>
+    <string name="title_nav_history">История измерений</string>
+
 </resources>
