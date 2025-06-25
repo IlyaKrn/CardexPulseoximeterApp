@@ -41,14 +41,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="12dp" />
 
-    <ImageButton
-        android:id="@+id/btDeviceSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?colorBackgroundFloating"
-        android:src="@drawable/ic_connection"
-        app:layout_constraintBottom_toBottomOf="@+id/tv1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv1" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

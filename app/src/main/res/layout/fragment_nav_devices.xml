@@ -5,10 +5,14 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="devices"
-        android:textSize="50sp"/>
+        android:text="Выберите устройство"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="?colorOnBackground"
+        android:padding="6dp"
+        android:elevation="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDevices"

@@ -1,19 +1,17 @@
 package com.ilyakrn.cardexpulseoximeterapp.ui.adapters
 
-import android.annotation.SuppressLint
-import android.bluetooth.BluetoothClass.Device
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.ilyakrn.cardexpulseoximeterapp.databinding.ItemDeviceBinding
 import com.ilyakrn.cardexpulseoximeterapp.models.DeviceModel
 import com.ilyakrn.cardexpulseoximeterapp.ui.bottomnav.devices.DevicesViewModel
 
-class DeviceAdapter : RecyclerView.Adapter<DeviceAdapter.Holder>() {
+class DeviceAdapter(devices: ArrayList<DeviceModel>) : RecyclerView.Adapter<DeviceAdapter.Holder>() {
 
-    private var devices = ArrayList<DevicesViewModel>()
+    var devices = devices
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -24,6 +22,7 @@ class DeviceAdapter : RecyclerView.Adapter<DeviceAdapter.Holder>() {
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.bind(devices[position])
     }
 
     override fun getItemCount(): Int {
@@ -32,6 +31,13 @@ class DeviceAdapter : RecyclerView.Adapter<DeviceAdapter.Holder>() {
 
     class Holder(private val binding: ItemDeviceBinding) : ViewHolder(binding.root) {
 
+        fun bind(device: DeviceModel) {
+            binding.deviceName.text = device.name
+            binding.root.setOnClickListener {
+                val toast: Toast = Toast.makeText(it.context, "Device '" + device.name + "' selected", Toast.LENGTH_LONG)
+                toast.show()
+            }
+        }
     }
 
 }
