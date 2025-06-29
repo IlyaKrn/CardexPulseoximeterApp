@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Выберите устройство"
+        android:text="@string/device_fragment_title"
         android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="?colorOnBackground"

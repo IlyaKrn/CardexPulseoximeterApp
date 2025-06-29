@@ -2,19 +2,24 @@ package com.ilyakrn.cardexpulseoximeterapp.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.GONE
+import androidx.recyclerview.widget.RecyclerView.VISIBLE
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.ilyakrn.cardexpulseoximeterapp.databinding.ItemDeviceBinding
 import com.ilyakrn.cardexpulseoximeterapp.models.DeviceModel
-import com.ilyakrn.cardexpulseoximeterapp.ui.bottomnav.devices.DevicesViewModel
 
-class DeviceAdapter(devices: ArrayList<DeviceModel>) : RecyclerView.Adapter<DeviceAdapter.Holder>() {
+class DeviceAdapter() : RecyclerView.Adapter<DeviceAdapter.Holder>() {
 
-    var devices = devices
+    var devices = ArrayList<DeviceModel>()
         set(value) {
             field = value
             notifyDataSetChanged()
+        }
+
+    var onClickListener: (device: DeviceModel) -> Unit = {}
+        set(value) {
+            field = value
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -22,7 +27,7 @@ class DeviceAdapter(devices: ArrayList<DeviceModel>) : RecyclerView.Adapter<Devi
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(devices[position])
+        holder.bind(devices[position], onClickListener)
     }
 
     override fun getItemCount(): Int {
@@ -30,12 +35,11 @@ class DeviceAdapter(devices: ArrayList<DeviceModel>) : RecyclerView.Adapter<Devi
     }
 
     class Holder(private val binding: ItemDeviceBinding) : ViewHolder(binding.root) {
-
-        fun bind(device: DeviceModel) {
+        fun bind(device: DeviceModel, onClickListener: (device: DeviceModel) -> Unit) {
             binding.deviceName.text = device.name
+            binding.isConnected.visibility = if (device.isConnected) VISIBLE else GONE
             binding.root.setOnClickListener {
-                val toast: Toast = Toast.makeText(it.context, "Device '" + device.name + "' selected", Toast.LENGTH_LONG)
-                toast.show()
+                onClickListener.invoke(device)
             }
         }
     }

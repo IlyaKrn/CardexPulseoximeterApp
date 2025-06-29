@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +23,11 @@ class DevicesFragment : Fragment() {
         binding = FragmentNavDevicesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val adapter = DeviceAdapter(arrayListOf(DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), DeviceModel("mac:mac", "name1", 5), ))
+        val adapter = DeviceAdapter()
+        adapter.devices = arrayListOf(DeviceModel("mac:mac", "name1", true), DeviceModel("mac:mac", "name1", true), DeviceModel("mac:mac", "name1", false))
+        adapter.onClickListener = { device ->
+            Toast.makeText(context, device.address, Toast.LENGTH_SHORT).show()
+        }
         binding.rvDevices.layoutManager = LinearLayoutManager(activity)
         binding.rvDevices.adapter = adapter
 
