@@ -35,7 +35,6 @@ class MeasureAdapter() : RecyclerView.Adapter<MeasureAdapter.Holder>() {
     }
 
     class Holder(private val binding: ItemMeasureBinding) : ViewHolder(binding.root) {
-
         fun bind(measure: MeasureModel, onClickListener: (measures: MeasureModel) -> Unit) {
             binding.deviceName.text = measure.deviceName
             binding.timestamp.text = measure.timestamp.toString()

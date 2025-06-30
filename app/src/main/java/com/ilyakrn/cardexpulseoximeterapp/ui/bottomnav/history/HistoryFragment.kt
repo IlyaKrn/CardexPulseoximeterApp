@@ -14,31 +14,28 @@ import com.ilyakrn.cardexpulseoximeterapp.models.DeviceModel
 import com.ilyakrn.cardexpulseoximeterapp.models.MeasureModel
 import com.ilyakrn.cardexpulseoximeterapp.ui.adapters.DeviceAdapter
 import com.ilyakrn.cardexpulseoximeterapp.ui.adapters.MeasureAdapter
+import com.ilyakrn.cardexpulseoximeterapp.ui.bottomnav.devices.DevicesViewModel
 
 class HistoryFragment : Fragment() {
 
     private lateinit var binding: FragmentNavHistoryBinding
+    private lateinit var viewModel: HistoryViewModel
+    private lateinit var adapter: MeasureAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val viewModel = ViewModelProvider(this)[HistoryViewModel::class.java]
+        viewModel = ViewModelProvider(this)[HistoryViewModel::class.java]
         binding = FragmentNavHistoryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val adapter = MeasureAdapter()
-        adapter.measures = arrayListOf(MeasureModel("mac:mac", "name1", System.currentTimeMillis(), 80, 98), MeasureModel("mac:mac", "name1", System.currentTimeMillis(), 80, 98), MeasureModel("mac:mac", "name1", System.currentTimeMillis(), 80, 98), MeasureModel("mac:mac", "name1", System.currentTimeMillis(), 80, 98), MeasureModel("mac:mac", "name1", System.currentTimeMillis(), 80, 98), )
-        adapter.onClickListener = { measure ->
-            Toast.makeText(context, measure.timestamp.toString(), Toast.LENGTH_SHORT).show()
-        }
+        adapter = MeasureAdapter()
         binding.rvMeasures.layoutManager = LinearLayoutManager(activity)
         binding.rvMeasures.adapter = adapter
-
-
-
-        viewModel.text.observe(viewLifecycleOwner) {
-
+        viewModel.measures.observe(viewLifecycleOwner) { measures ->
+            adapter.measures = measures
         }
+        binding.btDelete.setOnClickListener {
+            viewModel.deleteAllMeasures(requireContext())
+        }
+        viewModel.startMeasuresObserve(requireContext())
 
-
-        return root
+        return binding.root
     }
 }

@@ -17,33 +17,24 @@ class DevicesFragment : Fragment() {
 
     private lateinit var binding: FragmentNavDevicesBinding
     private lateinit var viewModel: DevicesViewModel
+    private lateinit var adapter: DeviceAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         viewModel = ViewModelProvider(this)[DevicesViewModel::class.java]
         binding = FragmentNavDevicesBinding.inflate(inflater, container, false)
-
-        val adapter = DeviceAdapter()
+        adapter = DeviceAdapter()
         binding.rvDevices.layoutManager = LinearLayoutManager(activity)
         binding.rvDevices.adapter = adapter
-        binding.btReload.setOnClickListener {
-            viewModel.updateDevices()
-        }
-
         viewModel.devices.observe(viewLifecycleOwner) { devices ->
             adapter.devices = devices
         }
-        viewModel.enableBluetooth(this)
-        viewModel.getDevices(requireContext())
+        adapter.onClickListener = { device ->
+
+        }
+        binding.btReload.setOnClickListener {
+
+        }
 
         return binding.root
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(resultCode == RESULT_OK) {
-            when (requestCode) {
-                1 -> viewModel.getDevices(requireContext())
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 }
