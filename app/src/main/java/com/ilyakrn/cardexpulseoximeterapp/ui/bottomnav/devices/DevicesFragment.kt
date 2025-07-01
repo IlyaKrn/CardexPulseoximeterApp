@@ -1,6 +1,9 @@
 package com.ilyakrn.cardexpulseoximeterapp.ui.bottomnav.devices
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,18 +29,31 @@ class DevicesFragment : Fragment() {
             adapter.devices = devices
         }
         adapter.onClickListener = { device ->
-            viewModel.connectToDevice(requireActivity(), device.address)
+            viewModel.connectToDevice(this, device.address)
         }
         binding.btReload.setOnClickListener {
-            viewModel.startDevicesScan(requireActivity())
+            viewModel.startDevicesScan(this)
         }
-        viewModel.startDevicesScan(requireActivity())
+        viewModel.startDevicesScan(this)
 
         return binding.root
     }
 
     override fun onDestroy() {
-        viewModel.stopDevicesScan(requireActivity())
+        viewModel.stopDevicesScan(this)
         super.onDestroy()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode){
+            1 -> {
+                grantResults.forEach {
+                    if(it != 0)
+                        return
+                }
+                viewModel.startDevicesScan(this)
+            }
+        }
     }
 }

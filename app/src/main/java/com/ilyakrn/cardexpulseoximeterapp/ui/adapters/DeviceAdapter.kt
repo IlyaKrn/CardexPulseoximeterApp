@@ -37,7 +37,7 @@ class DeviceAdapter() : RecyclerView.Adapter<DeviceAdapter.Holder>() {
     class Holder(private val binding: ItemDeviceBinding) : ViewHolder(binding.root) {
         fun bind(device: DeviceModel, onClickListener: (device: DeviceModel) -> Unit) {
             binding.deviceName.text = device.name
-            binding.isConnected.visibility = if (device.isConnected) VISIBLE else GONE
+            binding.isSaved.visibility = if (device.isConnected) VISIBLE else GONE
             binding.root.setOnClickListener {
                 onClickListener.invoke(device)
             }

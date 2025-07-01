@@ -4,7 +4,7 @@
     <string name="title_nav_devices">Устройства</string>
     <string name="title_nav_history">История измерений</string>
 
-    <string name="device_conneced">Устройство подключено</string>
+    <string name="device_saved">Сохранено</string>
     <string name="value_pr">PR:</string>
     <string name="value_spo2">SPO2:</string>
     <string name="device_fragment_title">Выберите устройство</string>
