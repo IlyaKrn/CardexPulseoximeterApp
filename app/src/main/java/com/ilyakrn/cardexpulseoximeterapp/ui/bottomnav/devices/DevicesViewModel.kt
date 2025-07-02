@@ -30,6 +30,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.lifecycle.viewModelScope
 import com.ilyakrn.cardexpulseoximeterapp.R
+import com.ilyakrn.cardexpulseoximeterapp.bluetooth.BluetoothDeviceThread
 import com.ilyakrn.cardexpulseoximeterapp.models.DeviceModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -100,8 +101,11 @@ class DevicesViewModel : ViewModel() {
     }
 
     fun connectToDevice(fragment: Fragment, address: String) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && ActivityCompat.checkSelfPermission(fragment.requireContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-            fragment.requestPermissions(arrayOf(Manifest.permission.BLUETOOTH_CONNECT), 2)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+            ActivityCompat.checkSelfPermission(fragment.requireContext(), Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(fragment.requireContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
+            ) {
+            fragment.requestPermissions(arrayOf(Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN), 3)
             return
         }
 
@@ -109,6 +113,10 @@ class DevicesViewModel : ViewModel() {
         val device = adapter.getRemoteDevice(address)
         if(device.bondState == BluetoothDevice.BOND_NONE){
             device.createBond()
+            return
+        }
+        if(device.bondState == BluetoothDevice.BOND_BONDED){
+            BluetoothDeviceThread(adapter, address).start()
             return
         }
     }
