@@ -32,6 +32,7 @@ import androidx.lifecycle.viewModelScope
 import com.ilyakrn.cardexpulseoximeterapp.R
 import com.ilyakrn.cardexpulseoximeterapp.bluetooth.BluetoothDeviceThread
 import com.ilyakrn.cardexpulseoximeterapp.models.DeviceModel
+import com.ilyakrn.cardexpulseoximeterapp.sqlite.SQLiteManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -116,7 +117,9 @@ class DevicesViewModel : ViewModel() {
             return
         }
         if(device.bondState == BluetoothDevice.BOND_BONDED){
-            BluetoothDeviceThread(adapter, address).start()
+            BluetoothDeviceThread(adapter, address, onReadMeasure = { measure ->
+                SQLiteManager(fragment.requireContext()).createMeasure(measure)
+            }).start()
             return
         }
     }

@@ -38,7 +38,7 @@ class SQLiteManager(private val context: Context) {
                     getLong(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_ID)),
                     getString(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_DEVICE_ADDRESS)),
                     getString(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_DEVICE_NAME)),
-                    getLong(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_TIMESTAMP)),
+                    getString(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_TIMESTAMP)),
                     getInt(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_PR)),
                     getInt(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_SPO2))
                 ))

@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothSocket
 import android.util.Log
 import androidx.annotation.RequiresPermission
+import com.ilyakrn.cardexpulseoximeterapp.models.MeasureModel
 import java.io.DataInputStream
 import java.io.DataOutputStream
 import java.io.IOException
@@ -15,7 +16,7 @@ import java.util.Arrays
 import java.util.UUID
 
 
-class BluetoothDeviceThread(private val adapter: BluetoothAdapter, private val deviceAddress: String) : Thread() {
+class BluetoothDeviceThread(private val adapter: BluetoothAdapter, private val deviceAddress: String, private val onReadMeasure: (MeasureModel) -> Unit) : Thread() {
 
     private lateinit var socket: BluetoothSocket
 
@@ -34,7 +35,33 @@ class BluetoothDeviceThread(private val adapter: BluetoothAdapter, private val d
             }
         }
         if(socket.isConnected){
-            socket.outputStream.write(byteArrayOf(12))
+            socket.inputStream.apply {
+                while (true){
+                    try {
+                        //read DATA1,
+                        var buffer = ""
+                        while (!buffer.endsWith("DATA1,")){
+                            buffer += read().toChar()
+                        }
+                        //read size
+                        buffer = ""
+                        while (!buffer.endsWith(",")){
+                            buffer += read().toChar()
+                        }
+                        val dataSize = buffer.substring(0, buffer.length - 1).toInt() + 5
+                        val dataBytesBuffer = ByteArray(dataSize)
+                        read(dataBytesBuffer, 0, dataSize)
+                        buffer = ""
+                        dataBytesBuffer.forEach { buffer += it.toChar() }
+
+                        val args = buffer.split(",")
+                        if(args.size != 6)
+                            continue
+                        onReadMeasure.invoke(MeasureModel(0, device.address, device.name, args[2], args[4].toInt(), args[5].toInt()))
+                    } catch(e : Exception){}
+                }
+
+            }
         }
     }
 

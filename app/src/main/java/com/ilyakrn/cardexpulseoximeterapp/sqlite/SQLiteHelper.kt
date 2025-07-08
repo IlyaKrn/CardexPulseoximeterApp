@@ -34,7 +34,7 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
                 "$MEASURE_COLUMN_ID INTEGER PRIMARY KEY," +
                 "$MEASURE_COLUMN_DEVICE_ADDRESS TEXT," +
                 "$MEASURE_COLUMN_DEVICE_NAME TEXT," +
-                "$MEASURE_COLUMN_TIMESTAMP BIGINT," +
+                "$MEASURE_COLUMN_TIMESTAMP TEXT," +
                 "$MEASURE_COLUMN_PR INTEGER," +
                 "$MEASURE_COLUMN_SPO2 INTEGER" +
                 ")"
