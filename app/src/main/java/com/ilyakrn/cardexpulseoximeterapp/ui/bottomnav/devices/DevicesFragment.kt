@@ -34,6 +34,7 @@ class DevicesFragment : Fragment() {
         binding.btReload.setOnClickListener {
             viewModel.startDevicesScan(this)
         }
+        viewModel.enableBluetooth(this)
         viewModel.startDevicesScan(this)
 
         return binding.root
@@ -42,6 +43,16 @@ class DevicesFragment : Fragment() {
     override fun onDestroy() {
         viewModel.stopDevicesScan(this)
         super.onDestroy()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            1 -> {
+                if(resultCode == RESULT_OK)
+                    viewModel.startDevicesScan(this)
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

@@ -9,5 +9,6 @@
     <string name="value_spo2">SPO2:</string>
     <string name="device_fragment_title">Выберите устройство</string>
     <string name="history_fragment_title">История измерений</string>
+    <string name="device_connected">Подключено</string>
 
 </resources>

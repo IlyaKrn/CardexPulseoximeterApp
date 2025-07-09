@@ -29,6 +29,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.lifecycle.viewModelScope
+import com.ilyakrn.cardexpulseoximeterapp.MainActivity
 import com.ilyakrn.cardexpulseoximeterapp.R
 import com.ilyakrn.cardexpulseoximeterapp.bluetooth.BluetoothDeviceThread
 import com.ilyakrn.cardexpulseoximeterapp.models.DeviceModel
@@ -79,7 +80,7 @@ class DevicesViewModel : ViewModel() {
                                     if (existingDevice.address == address)
                                         return
                                 }
-                                newDevices.add(DeviceModel(address, name, bondState == BluetoothDevice.BOND_BONDED))
+                                newDevices.add(DeviceModel(address, name, bondState == BluetoothDevice.BOND_BONDED, false))
                                 devices.value = newDevices
                             }
                         }
@@ -121,6 +122,14 @@ class DevicesViewModel : ViewModel() {
                 SQLiteManager(fragment.requireContext()).createMeasure(measure)
             }).start()
             return
+        }
+    }
+
+    fun enableBluetooth(fragment: Fragment){
+        adapter = getSystemService(fragment.requireContext(), BluetoothManager::class.java)!!.adapter!!
+        if (!adapter.isEnabled) {
+            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            fragment.startActivityForResult(enableBtIntent, 1)
         }
     }
 

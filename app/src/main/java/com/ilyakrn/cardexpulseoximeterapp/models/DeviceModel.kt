@@ -3,5 +3,6 @@ package com.ilyakrn.cardexpulseoximeterapp.models
 data class DeviceModel(
     val address: String,
     val name: String,
-    var isConnected: Boolean
+    var isSaved: Boolean,
+    var isConnected: Boolean,
 )

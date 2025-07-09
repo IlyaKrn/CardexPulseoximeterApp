@@ -6,5 +6,5 @@ data class MeasureModel(
     val deviceName: String,
     val timestamp: String,
     var PR: Int,
-    var SpO2: Int
+    var SpO2: Int,
 )
