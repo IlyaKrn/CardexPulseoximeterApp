@@ -65,6 +65,10 @@ class DevicesViewModel : ViewModel() {
         }
 
         adapter = getSystemService(fragment.requireContext(), BluetoothManager::class.java)!!.adapter!!
+        if(!adapter.isEnabled){
+            Toast.makeText(fragment.requireContext(), "Включите Bluetooth", Toast.LENGTH_SHORT).show()
+            return
+        }
         if(!isReceiverRegistered) {
             receiver = object : BroadcastReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
@@ -112,15 +116,40 @@ class DevicesViewModel : ViewModel() {
         }
 
         adapter = getSystemService(fragment.requireContext(), BluetoothManager::class.java)!!.adapter!!
+        if(!adapter.isEnabled){
+            Toast.makeText(fragment.requireContext(), "Включите Bluetooth", Toast.LENGTH_SHORT).show()
+            return
+        }
         val device = adapter.getRemoteDevice(address)
         if(device.bondState == BluetoothDevice.BOND_NONE){
             device.createBond()
             return
         }
         if(device.bondState == BluetoothDevice.BOND_BONDED){
-            BluetoothDeviceThread(adapter, address, onReadMeasure = { measure ->
-                SQLiteManager(fragment.requireContext()).createMeasure(measure)
-            }).start()
+            (fragment.requireActivity() as MainActivity).apply {
+                bluetoothDeviceThread?.isRunning = false
+                bluetoothDeviceThread = BluetoothDeviceThread(adapter, address, onReadMeasure = { measure ->
+                    SQLiteManager(fragment.requireContext()).createMeasure(measure)
+                })
+                bluetoothDeviceThread!!.start()
+                viewModelScope.launch {
+                    while (bluetoothDeviceThread!!.isConnected == null && bluetoothDeviceThread!!.isRunning){
+                        delay(200)
+                    }
+                    if(bluetoothDeviceThread!!.isConnected == true && bluetoothDeviceThread!!.isRunning){
+                        Toast.makeText(fragment.requireContext(), "Подключено", Toast.LENGTH_SHORT).show()
+                        val newDevices = devices.value
+                        newDevices!!.forEach {
+                            it.isConnected = device.address == it.address
+                        }
+                        devices.value = newDevices
+                    }
+                    else{
+                        Toast.makeText(fragment.requireContext(), "Не удалось подключиться", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
             return
         }
     }
@@ -128,8 +157,7 @@ class DevicesViewModel : ViewModel() {
     fun enableBluetooth(fragment: Fragment){
         adapter = getSystemService(fragment.requireContext(), BluetoothManager::class.java)!!.adapter!!
         if (!adapter.isEnabled) {
-            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-            fragment.startActivityForResult(enableBtIntent, 1)
+            fragment.startActivityForResult(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), 1)
         }
     }
 

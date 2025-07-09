@@ -12,6 +12,8 @@ import java.util.UUID
 class BluetoothDeviceThread(private val adapter: BluetoothAdapter, private val deviceAddress: String, private val onReadMeasure: (MeasureModel) -> Unit) : Thread() {
 
     private lateinit var socket: BluetoothSocket
+    var isRunning = true
+    var isConnected: Boolean? = null
 
     @RequiresPermission(allOf = [Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT])
     override fun run() {
@@ -39,21 +41,24 @@ class BluetoothDeviceThread(private val adapter: BluetoothAdapter, private val d
                 }
             }
             if(socket.isConnected){
+                isConnected = true
                 socket.inputStream.apply {
                     Log.i(this.javaClass.name, "${device.address}: start listening socket")
-                    while (true){
+                    while (isRunning){
                         try {
                             //read DATA1,
                             var buffer = ""
-                            while (!buffer.endsWith("DATA1,")){
+                            while (!buffer.endsWith("DATA1,") && isRunning){
                                 buffer += read().toChar()
                             }
                             Log.i(this.javaClass.name, "${device.address}: 'DATA1,' readed, trying to read data size")
                             //read size
                             buffer = ""
-                            while (!buffer.endsWith(",")){
+                            while (!buffer.endsWith(",") && isRunning){
                                 buffer += read().toChar()
                             }
+                            if(!isRunning)
+                                break
                             val dataSize = buffer.substring(0, buffer.length - 1).toInt() + 5
                             Log.i(this.javaClass.name, "${device.address}: data size read ($dataSize), trying to read args")
                             val dataBytesBuffer = ByteArray(dataSize)
@@ -83,11 +88,15 @@ class BluetoothDeviceThread(private val adapter: BluetoothAdapter, private val d
         }catch (e: Exception){
             e.printStackTrace()
         }
+        isConnected = false
+        isRunning = false
     }
 
     fun cancel() {
         try {
             Log.w(this.javaClass.name, "$deviceAddress: bluetooth socket closed")
+            isConnected = false
+            isRunning = false
             socket.close()
         } catch (e: IOException) {
             Log.w(this.javaClass.name, "$deviceAddress: failed to close socket: ${e.message}")
