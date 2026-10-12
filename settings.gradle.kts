@@ -20,4 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "CardexPulseoximeterApp"
-include ':app'
+include(":app")
