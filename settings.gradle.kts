@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "CardexPulseoximeterApp"
 include(":app")
+include(":domain")
+include(":data")
