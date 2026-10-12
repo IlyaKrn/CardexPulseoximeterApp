@@ -6,12 +6,12 @@
 
     <fragment
         android:id="@+id/nav_devices"
-        android:name="com.ilyakrn.cardexpulseoximeterapp.ui.bottomnav.devices.DevicesFragment"
+        android:name="com.ilyakrn.cardexpulseoximeterapp.app.ui.bottomnav.devices.DevicesFragment"
         tools:layout="@layout/fragment_nav_devices" />
 
     <fragment
         android:id="@+id/nav_history"
-        android:name="com.ilyakrn.cardexpulseoximeterapp.ui.bottomnav.history.HistoryFragment"
+        android:name="com.ilyakrn.cardexpulseoximeterapp.app.ui.bottomnav.history.HistoryFragment"
         tools:layout="@layout/fragment_nav_history" />
 
 </navigation>

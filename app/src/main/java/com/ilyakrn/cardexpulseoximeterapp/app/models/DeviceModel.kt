@@ -1,4 +1,4 @@
-package com.ilyakrn.cardexpulseoximeterapp.models
+package com.ilyakrn.cardexpulseoximeterapp.app.models
 
 data class DeviceModel(
     val address: String,

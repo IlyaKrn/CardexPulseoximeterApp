@@ -1,13 +1,11 @@
-package com.ilyakrn.cardexpulseoximeterapp.ui.adapters
+package com.ilyakrn.cardexpulseoximeterapp.app.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.ilyakrn.cardexpulseoximeterapp.databinding.ItemDeviceBinding
-import com.ilyakrn.cardexpulseoximeterapp.databinding.ItemMeasureBinding
-import com.ilyakrn.cardexpulseoximeterapp.models.DeviceModel
-import com.ilyakrn.cardexpulseoximeterapp.models.MeasureModel
+import com.ilyakrn.cardexpulseoximeterapp.app.databinding.ItemMeasureBinding
+import com.ilyakrn.cardexpulseoximeterapp.app.models.MeasureModel
 
 class MeasureAdapter() : RecyclerView.Adapter<MeasureAdapter.Holder>() {
 

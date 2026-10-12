@@ -1,11 +1,11 @@
-package com.ilyakrn.cardexpulseoximeterapp
+package com.ilyakrn.cardexpulseoximeterapp.app
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.ilyakrn.cardexpulseoximeterapp.bluetooth.BluetoothDeviceThread
-import com.ilyakrn.cardexpulseoximeterapp.databinding.ActivityMainBinding
+import com.ilyakrn.cardexpulseoximeterapp.app.bluetooth.BluetoothDeviceThread
+import com.ilyakrn.cardexpulseoximeterapp.app.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

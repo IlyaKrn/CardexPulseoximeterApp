@@ -1,12 +1,11 @@
-package com.ilyakrn.cardexpulseoximeterapp.ui.bottomnav.history
+package com.ilyakrn.cardexpulseoximeterapp.app.ui.bottomnav.history
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ilyakrn.cardexpulseoximeterapp.models.MeasureModel
-import com.ilyakrn.cardexpulseoximeterapp.sqlite.SQLiteManager
+import com.ilyakrn.cardexpulseoximeterapp.app.models.MeasureModel
+import com.ilyakrn.cardexpulseoximeterapp.app.sqlite.SQLiteManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

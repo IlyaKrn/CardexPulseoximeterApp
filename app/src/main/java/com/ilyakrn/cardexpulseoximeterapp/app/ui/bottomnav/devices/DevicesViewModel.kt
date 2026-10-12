@@ -1,43 +1,29 @@
-package com.ilyakrn.cardexpulseoximeterapp.ui.bottomnav.devices
+package com.ilyakrn.cardexpulseoximeterapp.app.ui.bottomnav.devices
 
 import android.Manifest
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
-import android.bluetooth.BluetoothSocket
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.location.LocationManager
 import android.os.Build
-import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.requestPermissions
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.os.BuildCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.lifecycle.viewModelScope
-import com.ilyakrn.cardexpulseoximeterapp.MainActivity
-import com.ilyakrn.cardexpulseoximeterapp.R
-import com.ilyakrn.cardexpulseoximeterapp.bluetooth.BluetoothDeviceThread
-import com.ilyakrn.cardexpulseoximeterapp.models.DeviceModel
-import com.ilyakrn.cardexpulseoximeterapp.sqlite.SQLiteManager
+import com.ilyakrn.cardexpulseoximeterapp.app.MainActivity
+import com.ilyakrn.cardexpulseoximeterapp.app.bluetooth.BluetoothDeviceThread
+import com.ilyakrn.cardexpulseoximeterapp.app.models.DeviceModel
+import com.ilyakrn.cardexpulseoximeterapp.app.sqlite.SQLiteManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.io.IOException
-import java.util.UUID
 
 
 class DevicesViewModel : ViewModel() {

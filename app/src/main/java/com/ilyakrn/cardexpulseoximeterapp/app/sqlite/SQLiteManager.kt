@@ -1,9 +1,9 @@
-package com.ilyakrn.cardexpulseoximeterapp.sqlite
+package com.ilyakrn.cardexpulseoximeterapp.app.sqlite
 
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
-import com.ilyakrn.cardexpulseoximeterapp.models.MeasureModel
+import com.ilyakrn.cardexpulseoximeterapp.app.models.MeasureModel
 
 class SQLiteManager(private val context: Context) {
 

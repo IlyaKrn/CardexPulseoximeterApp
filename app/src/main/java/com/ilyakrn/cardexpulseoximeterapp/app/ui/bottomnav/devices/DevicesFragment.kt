@@ -1,17 +1,16 @@
-package com.ilyakrn.cardexpulseoximeterapp.ui.bottomnav.devices
+package com.ilyakrn.cardexpulseoximeterapp.app.ui.bottomnav.devices
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ilyakrn.cardexpulseoximeterapp.databinding.FragmentNavDevicesBinding
-import com.ilyakrn.cardexpulseoximeterapp.ui.adapters.DeviceAdapter
+import com.ilyakrn.cardexpulseoximeterapp.app.databinding.FragmentNavDevicesBinding
+import com.ilyakrn.cardexpulseoximeterapp.app.ui.adapters.DeviceAdapter
 
 class DevicesFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.ilyakrn.cardexpulseoximeterapp.sqlite
+package com.ilyakrn.cardexpulseoximeterapp.app.sqlite
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

@@ -1,20 +1,14 @@
-package com.ilyakrn.cardexpulseoximeterapp.ui.bottomnav.history
+package com.ilyakrn.cardexpulseoximeterapp.app.ui.bottomnav.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ilyakrn.cardexpulseoximeterapp.databinding.FragmentNavDevicesBinding
-import com.ilyakrn.cardexpulseoximeterapp.databinding.FragmentNavHistoryBinding
-import com.ilyakrn.cardexpulseoximeterapp.models.DeviceModel
-import com.ilyakrn.cardexpulseoximeterapp.models.MeasureModel
-import com.ilyakrn.cardexpulseoximeterapp.ui.adapters.DeviceAdapter
-import com.ilyakrn.cardexpulseoximeterapp.ui.adapters.MeasureAdapter
-import com.ilyakrn.cardexpulseoximeterapp.ui.bottomnav.devices.DevicesViewModel
+import com.ilyakrn.cardexpulseoximeterapp.app.databinding.FragmentNavHistoryBinding
+import com.ilyakrn.cardexpulseoximeterapp.app.ui.adapters.MeasureAdapter
 
 class HistoryFragment : Fragment() {
 
