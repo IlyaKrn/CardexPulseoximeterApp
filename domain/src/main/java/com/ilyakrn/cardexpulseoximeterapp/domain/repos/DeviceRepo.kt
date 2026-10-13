@@ -5,8 +5,6 @@ import com.ilyakrn.cardexpulseoximeterapp.domain.models.MeasureModel
 
 interface DeviceRepo {
     fun findDevices(onDeviceFound: (DeviceModel) -> Unit)
-    fun getCurrentDevice(): DeviceModel?
-    fun connect(mac: String)
+    fun connect(deviceMacAddress: String, onReadMeasure: (MeasureModel) -> Unit)
     fun disconnect()
-    fun listen(onReadMeasure: (MeasureModel) -> Unit)
 }

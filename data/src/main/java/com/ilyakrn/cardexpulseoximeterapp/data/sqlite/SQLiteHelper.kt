@@ -24,9 +24,9 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         const val DATABASE_NAME = "cardexpulseoximeterapp.db"
 
         const val MEASURE_TABLE_NAME = "measures"
-        const val MEASURE_COLUMN_ID = "id"
-        const val MEASURE_COLUMN_DEVICE_ADDRESS = "deviceAddress"
-        const val MEASURE_COLUMN_DEVICE_NAME = "deviceName"
+        const val MEASURE_COLUMN_ID = "measure_id"
+        const val MEASURE_COLUMN_DEVICE_ADDRESS = "device_mac_ddress"
+        const val MEASURE_COLUMN_DEVICE_NAME = "device_name"
         const val MEASURE_COLUMN_TIMESTAMP = "timestamp"
         const val MEASURE_COLUMN_PR = "pr"
         const val MEASURE_COLUMN_SPO2 = "spo2"
@@ -34,7 +34,7 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
                 "$MEASURE_COLUMN_ID INTEGER PRIMARY KEY," +
                 "$MEASURE_COLUMN_DEVICE_ADDRESS TEXT," +
                 "$MEASURE_COLUMN_DEVICE_NAME TEXT," +
-                "$MEASURE_COLUMN_TIMESTAMP TEXT," +
+                "$MEASURE_COLUMN_TIMESTAMP INTEGER," +
                 "$MEASURE_COLUMN_PR INTEGER," +
                 "$MEASURE_COLUMN_SPO2 INTEGER" +
                 ")"

@@ -1,13 +1,15 @@
-package com.ilyakrn.cardexpulseoximeterapp.data.sqlite
+package com.ilyakrn.cardexpulseoximeterapp.data.repos
 
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
+import com.ilyakrn.cardexpulseoximeterapp.data.sqlite.SQLiteHelper
 import com.ilyakrn.cardexpulseoximeterapp.domain.models.MeasureModel
+import com.ilyakrn.cardexpulseoximeterapp.domain.repos.MeasureRepo
 
-class SQLiteManager(private val context: Context) {
+class MeasureRepoImpl(private val context: Context) : MeasureRepo {
 
-    fun createMeasure(measure: MeasureModel): Long{
+    override fun createMeasure(measure: MeasureModel) {
         try {
             val db = SQLiteHelper(context).writableDatabase
             val id =  db.insert(SQLiteHelper.MEASURE_TABLE_NAME, null, ContentValues().apply {
@@ -18,16 +20,15 @@ class SQLiteManager(private val context: Context) {
                 put(SQLiteHelper.MEASURE_COLUMN_SPO2, measure.SpO2)
             })
             db.close()
-            Log.i(this.javaClass.name, "save measure to database successful (id=$id)")
-            return id
+            Log.i(this.javaClass.name, "save measure to database successful (measureId=$id, $measure)")
         } catch (e: Exception){
-            Log.e(this.javaClass.name, "save measure to database failed: ${e.message}")
-            return -1
+            Log.e(this.javaClass.name, "save measure to database failed: ${e.message}, ($measure)")
         }
     }
 
-    fun getMeasures(): ArrayList<MeasureModel> {
+    override fun getMeasuresPage(page: Int, pageSize: Int, deviceMacAddress: String?, timestampStart: Long?, timestampEnd: Long?): ArrayList<MeasureModel> {
         try {
+
             val db = SQLiteHelper(context).readableDatabase
             val cursor = db.query(
                 SQLiteHelper.MEASURE_TABLE_NAME,
@@ -36,8 +37,9 @@ class SQLiteManager(private val context: Context) {
                 null,
                 null,
                 null,
-                "${SQLiteHelper.MEASURE_COLUMN_TIMESTAMP} DESC"
-        )
+                "${SQLiteHelper.MEASURE_COLUMN_TIMESTAMP} DESC",
+                "$pageSize, ${page*pageSize}"
+            )
             val measures = ArrayList<MeasureModel>()
             with(cursor) {
                 while (moveToNext()) {
@@ -45,15 +47,15 @@ class SQLiteManager(private val context: Context) {
                         getLong(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_ID)),
                         getString(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_DEVICE_ADDRESS)),
                         getString(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_DEVICE_NAME)),
-                        getString(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_TIMESTAMP)),
+                        getLong(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_TIMESTAMP)),
                         getInt(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_PR)),
                         getInt(getColumnIndexOrThrow(SQLiteHelper.MEASURE_COLUMN_SPO2))
                     ))
                 }
-        }
+            }
             cursor.close()
             db.close()
-            Log.i(this.javaClass.name, "get data of ${measures.size} measures successful")
+            Log.i(this.javaClass.name, "get data of ${measures.size} measures successful (page=$page, pageSize=$pageSize, deviceMacAddress=$deviceMacAddress, timestampStart=$timestampStart, timestampEnd=$timestampEnd)")
             return measures
         } catch (e: Exception){
             Log.e(this.javaClass.name, "get measures data from database failed: ${e.message}")
@@ -61,24 +63,11 @@ class SQLiteManager(private val context: Context) {
         }
     }
 
-    fun deleteMeasure(id: Int) {
-        try{
-            SQLiteHelper(context).writableDatabase.apply {
-                delete(SQLiteHelper.MEASURE_TABLE_NAME, "WHERE ${SQLiteHelper.MEASURE_COLUMN_ID} = $id", null)
-                close()
-            }
-            Log.i(this.javaClass.name, "delete measure with id $id successful")
-        } catch (e: Exception){
-            Log.e(this.javaClass.name, "delete measure with id $id failed: ${e.message}")
-        }
-    }
-
-    fun deleteAllMeasures() {
+    override fun deleteMeasures() {
         try {
-            SQLiteHelper(context).writableDatabase.apply {
-                delete(SQLiteHelper.MEASURE_TABLE_NAME, "true", null)
-                close()
-            }
+            val db = SQLiteHelper(context).writableDatabase
+            db.delete(SQLiteHelper.MEASURE_TABLE_NAME, "true", null)
+            db.close()
             Log.i(this.javaClass.name, "delete all measures successful")
         } catch (e: Exception){
             Log.e(this.javaClass.name, "delete all measures failed: ${e.message}")
