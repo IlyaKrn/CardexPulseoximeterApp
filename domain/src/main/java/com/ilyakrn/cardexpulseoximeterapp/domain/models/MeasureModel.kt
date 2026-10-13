@@ -1,8 +1,8 @@
-package com.ilyakrn.cardexpulseoximeterapp.app.models
+package com.ilyakrn.cardexpulseoximeterapp.domain.models
 
 data class MeasureModel(
-    val databaseId: Long,
-    val deviceAddress: String,
+    val measureId: Long?,
+    val deviceMacAddress: String,
     val deviceName: String,
     val timestamp: String,
     var PR: Int,

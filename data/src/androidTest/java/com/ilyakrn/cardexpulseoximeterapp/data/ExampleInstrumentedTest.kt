@@ -1,4 +1,4 @@
-package com.ilyakrn.cardexpulseoximeterapp.mylibrary
+package com.ilyakrn.cardexpulseoximeterapp.data
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

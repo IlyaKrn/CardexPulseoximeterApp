@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.ilyakrn.cardexpulseoximeterapp.app.bluetooth.BluetoothDeviceThread
+import com.ilyakrn.cardexpulseoximeterapp.data.bluetooth.BluetoothDeviceThread
 import com.ilyakrn.cardexpulseoximeterapp.app.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

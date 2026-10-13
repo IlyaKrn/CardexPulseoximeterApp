@@ -19,9 +19,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ilyakrn.cardexpulseoximeterapp.app.MainActivity
-import com.ilyakrn.cardexpulseoximeterapp.app.bluetooth.BluetoothDeviceThread
-import com.ilyakrn.cardexpulseoximeterapp.app.models.DeviceModel
-import com.ilyakrn.cardexpulseoximeterapp.app.sqlite.SQLiteManager
+import com.ilyakrn.cardexpulseoximeterapp.data.bluetooth.BluetoothDeviceThread
+import com.ilyakrn.cardexpulseoximeterapp.domain.models.DeviceModel
+import com.ilyakrn.cardexpulseoximeterapp.data.sqlite.SQLiteManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

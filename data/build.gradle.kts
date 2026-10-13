@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.ilyakrn.cardexpulseoximeterapp.mylibrary"
+    namespace = "com.ilyakrn.cardexpulseoximeterapp.data"
     compileSdk = 35
 
     defaultConfig {

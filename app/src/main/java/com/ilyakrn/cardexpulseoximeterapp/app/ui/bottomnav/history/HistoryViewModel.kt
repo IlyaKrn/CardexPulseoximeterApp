@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ilyakrn.cardexpulseoximeterapp.app.models.MeasureModel
-import com.ilyakrn.cardexpulseoximeterapp.app.sqlite.SQLiteManager
+import com.ilyakrn.cardexpulseoximeterapp.domain.models.MeasureModel
+import com.ilyakrn.cardexpulseoximeterapp.data.sqlite.SQLiteManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

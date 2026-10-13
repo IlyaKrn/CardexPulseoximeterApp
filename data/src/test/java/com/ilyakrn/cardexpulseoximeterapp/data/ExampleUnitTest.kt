@@ -1,4 +1,4 @@
-package com.ilyakrn.cardexpulseoximeterapp.mylibrary
+package com.ilyakrn.cardexpulseoximeterapp.data
 
 import org.junit.Test
 

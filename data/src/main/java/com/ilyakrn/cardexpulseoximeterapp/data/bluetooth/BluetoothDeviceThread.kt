@@ -1,11 +1,11 @@
-package com.ilyakrn.cardexpulseoximeterapp.app.bluetooth
+package com.ilyakrn.cardexpulseoximeterapp.data.bluetooth
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothSocket
 import android.util.Log
 import androidx.annotation.RequiresPermission
-import com.ilyakrn.cardexpulseoximeterapp.app.models.MeasureModel
+import com.ilyakrn.cardexpulseoximeterapp.domain.models.MeasureModel
 import java.io.IOException
 import java.util.UUID
 

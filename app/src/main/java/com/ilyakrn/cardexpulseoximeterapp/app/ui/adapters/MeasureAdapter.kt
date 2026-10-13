@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.ilyakrn.cardexpulseoximeterapp.app.databinding.ItemMeasureBinding
-import com.ilyakrn.cardexpulseoximeterapp.app.models.MeasureModel
+import com.ilyakrn.cardexpulseoximeterapp.domain.models.MeasureModel
 
 class MeasureAdapter() : RecyclerView.Adapter<MeasureAdapter.Holder>() {
 

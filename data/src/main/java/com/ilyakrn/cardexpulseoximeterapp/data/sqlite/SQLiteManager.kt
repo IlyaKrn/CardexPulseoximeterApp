@@ -1,9 +1,9 @@
-package com.ilyakrn.cardexpulseoximeterapp.app.sqlite
+package com.ilyakrn.cardexpulseoximeterapp.data.sqlite
 
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
-import com.ilyakrn.cardexpulseoximeterapp.app.models.MeasureModel
+import com.ilyakrn.cardexpulseoximeterapp.domain.models.MeasureModel
 
 class SQLiteManager(private val context: Context) {
 
@@ -11,7 +11,7 @@ class SQLiteManager(private val context: Context) {
         try {
             val db = SQLiteHelper(context).writableDatabase
             val id =  db.insert(SQLiteHelper.MEASURE_TABLE_NAME, null, ContentValues().apply {
-                put(SQLiteHelper.MEASURE_COLUMN_DEVICE_ADDRESS, measure.deviceAddress)
+                put(SQLiteHelper.MEASURE_COLUMN_DEVICE_ADDRESS, measure.deviceMacAddress)
                 put(SQLiteHelper.MEASURE_COLUMN_DEVICE_NAME, measure.deviceName)
                 put(SQLiteHelper.MEASURE_COLUMN_TIMESTAMP, measure.timestamp)
                 put(SQLiteHelper.MEASURE_COLUMN_PR, measure.PR)

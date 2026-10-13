@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.GONE
 import androidx.recyclerview.widget.RecyclerView.VISIBLE
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.ilyakrn.cardexpulseoximeterapp.app.databinding.ItemDeviceBinding
-import com.ilyakrn.cardexpulseoximeterapp.app.models.DeviceModel
+import com.ilyakrn.cardexpulseoximeterapp.domain.models.DeviceModel
 
 class DeviceAdapter() : RecyclerView.Adapter<DeviceAdapter.Holder>() {
 
