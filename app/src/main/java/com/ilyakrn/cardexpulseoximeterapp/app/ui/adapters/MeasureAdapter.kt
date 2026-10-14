@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.ilyakrn.cardexpulseoximeterapp.app.databinding.ItemMeasureBinding
 import com.ilyakrn.cardexpulseoximeterapp.domain.models.MeasureModel
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class MeasureAdapter() : RecyclerView.Adapter<MeasureAdapter.Holder>() {
 
@@ -35,7 +38,7 @@ class MeasureAdapter() : RecyclerView.Adapter<MeasureAdapter.Holder>() {
     class Holder(private val binding: ItemMeasureBinding) : ViewHolder(binding.root) {
         fun bind(measure: MeasureModel, onClickListener: (measures: MeasureModel) -> Unit) {
             binding.deviceName.text = measure.deviceName
-            binding.timestamp.text = measure.timestamp
+            binding.timestamp.text = DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy").withZone(ZoneId.systemDefault()).format(Instant.ofEpochSecond(measure.timestamp))
             binding.valueSPO2.text = measure.SpO2.toString()
             binding.valuePR.text = measure.PR.toString()
 
