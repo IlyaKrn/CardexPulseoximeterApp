@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ilyakrn.cardexpulseoximeterapp.data.repos.MeasureRepoImpl
 import com.ilyakrn.cardexpulseoximeterapp.domain.models.MeasureModel
-import com.ilyakrn.cardexpulseoximeterapp.data.sqlite.SQLiteManager
+import com.ilyakrn.cardexpulseoximeterapp.domain.usecases.DeleteAllMeasuresUseCase
+import com.ilyakrn.cardexpulseoximeterapp.domain.usecases.GetRecentMeasuresByFilterUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -16,15 +18,13 @@ class HistoryViewModel : ViewModel() {
     }
 
     fun deleteAllMeasures(context: Context){
-        SQLiteManager(context).deleteAllMeasures()
+        DeleteAllMeasuresUseCase(MeasureRepoImpl(context))
     }
 
     fun startMeasuresObserve(context: Context){
         viewModelScope.launch {
             while (true){
-                SQLiteManager(context).apply {
-                    measures.value = getMeasures()
-                }
+                measures.value = GetRecentMeasuresByFilterUseCase(null, null, null, MeasureRepoImpl(context)).invoke()
                 delay(2000)
             }
         }

@@ -9,23 +9,26 @@ import com.ilyakrn.cardexpulseoximeterapp.domain.models.MeasureModel
 import java.io.IOException
 import java.util.UUID
 
-class BluetoothDeviceThread(private val adapter: BluetoothAdapter, private val deviceAddress: String, private val onReadMeasure: (MeasureModel) -> Unit) : Thread() {
+class BluetoothDeviceThread(private val adapter: BluetoothAdapter, private val deviceMacAddress: String, private val onReadMeasure: (MeasureModel) -> Unit) : Thread() {
 
     private lateinit var socket: BluetoothSocket
     var isRunning = true
     var isConnected: Boolean? = null
 
-    @RequiresPermission(allOf = [Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT])
+    @RequiresPermission(allOf = [
+        Manifest.permission.BLUETOOTH_SCAN,
+        Manifest.permission.BLUETOOTH_CONNECT
+    ])
     override fun run() {
         try {
-            Log.i(this.javaClass.name, "socket thread started (trying mac '$deviceAddress')")
+            Log.i(this.javaClass.name, "socket thread started (trying deviceMacAddress '$deviceMacAddress')")
             if (adapter.cancelDiscovery())
                 Log.i(this.javaClass.name, "discovery cancelled successful")
             else
                 Log.w(this.javaClass.name, "discovery not canceled")
 
-            val device = adapter.getRemoteDevice(deviceAddress)
-            Log.i(this.javaClass.name, "trying set connection with device '${device.name}', mac: '${device.address}', state: '${device.bondState}'")
+            val device = adapter.getRemoteDevice(deviceMacAddress)
+            Log.i(this.javaClass.name, "trying set connection with device '${device.name}', deviceMacAddress: '${device.address}', state: '${device.bondState}'")
 
             device.uuids?.let { uuids ->
                 for (i in 0..uuids.size){
@@ -51,7 +54,7 @@ class BluetoothDeviceThread(private val adapter: BluetoothAdapter, private val d
                             while (!buffer.endsWith("DATA1,") && isRunning){
                                 buffer += read().toChar()
                             }
-                            Log.i(this.javaClass.name, "${device.address}: 'DATA1,' readed, trying to read data size")
+                            Log.i(this.javaClass.name, "${device.address}: 'DATA1,' read, trying to read data size")
                             //read size
                             buffer = ""
                             while (!buffer.endsWith(",") && isRunning){
@@ -72,7 +75,7 @@ class BluetoothDeviceThread(private val adapter: BluetoothAdapter, private val d
                                 continue
                             }
                             Log.i(this.javaClass.name, "${device.address}: start measure callback")
-                            onReadMeasure.invoke(MeasureModel(0, device.address, device.name, args[2], args[4].toInt(), args[5].toInt()))
+                            onReadMeasure.invoke(MeasureModel(0, device.address, device.name, /*args[2]*/0, args[4].toInt(), args[5].toInt()))
                         } catch(e : Exception){
                             Log.w(this.javaClass.name, "${device.address}: error parsing socket input data, listening continued")
                         }
@@ -81,10 +84,10 @@ class BluetoothDeviceThread(private val adapter: BluetoothAdapter, private val d
                 }
             }
             else{
-                Log.e(this.javaClass.name, "failed to connect to device '${device.name}', mac: '${device.address}'")
+                Log.e(this.javaClass.name, "failed to connect to device '${device.name}', deviceMacAddress: '${device.address}'")
             }
         } catch (e: IllegalStateException){
-            Log.e(this.javaClass.name, "failed to connect to device: invalid mac '$deviceAddress'")
+            Log.e(this.javaClass.name, "failed to connect to device: invalid deviceMacAddress '$deviceMacAddress'")
         }catch (e: Exception){
             e.printStackTrace()
         }
@@ -94,12 +97,12 @@ class BluetoothDeviceThread(private val adapter: BluetoothAdapter, private val d
 
     fun cancel() {
         try {
-            Log.w(this.javaClass.name, "$deviceAddress: bluetooth socket closed")
+            Log.i(this.javaClass.name, "$deviceMacAddress: bluetooth socket closed")
             isConnected = false
             isRunning = false
             socket.close()
         } catch (e: IOException) {
-            Log.w(this.javaClass.name, "$deviceAddress: failed to close socket: ${e.message}")
+            Log.w(this.javaClass.name, "$deviceMacAddress: failed to close socket: ${e.message}")
         }
     }
 }
