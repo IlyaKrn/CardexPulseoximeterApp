@@ -32,4 +32,9 @@ class HistoryFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.stopMeasuresObserve(requireContext())
+    }
 }
