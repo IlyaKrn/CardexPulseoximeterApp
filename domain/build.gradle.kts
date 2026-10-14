@@ -5,10 +5,10 @@ plugins {
 
 android {
     namespace = "com.ilyakrn.cardexpulseoximeterapp.domain"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 31
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")

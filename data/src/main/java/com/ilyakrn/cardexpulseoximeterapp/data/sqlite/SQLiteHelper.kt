@@ -3,15 +3,18 @@ package com.ilyakrn.cardexpulseoximeterapp.data.sqlite
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 class SQLiteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(MEASURE_CREATE)
+        Log.i(this.javaClass.name, "database create: $MEASURE_CREATE")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL(MEASURE_DROP)
+        Log.i(this.javaClass.name, "database drop: $MEASURE_DROP")
         onCreate(db)
     }
 

@@ -5,4 +5,8 @@ data class DeviceModel(
     val name: String,
     var isSaved: Boolean = false,
     var isConnected: Boolean = false,
-)
+) {
+    override fun toString(): String {
+        return "DeviceModel(address='$address', name='$name', isSaved=$isSaved, isConnected=$isConnected)"
+    }
+}

@@ -5,12 +5,11 @@ plugins {
 
 android {
     namespace = "com.ilyakrn.cardexpulseoximeterapp.app"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.ilyakrn.cardexpulseoximeterapp"
-        minSdk = 24
-        targetSdk = 35
+        minSdk = 31
         versionCode = 1
         versionName = "1.0"
 

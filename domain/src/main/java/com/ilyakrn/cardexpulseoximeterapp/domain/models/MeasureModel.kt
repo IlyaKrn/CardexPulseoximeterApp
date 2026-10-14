@@ -7,4 +7,8 @@ data class MeasureModel(
     val timestamp: Long,
     val PR: Int,
     val SpO2: Int,
-)
+) {
+    override fun toString(): String {
+        return "MeasureModel(measureId=$measureId, deviceMacAddress='$deviceMacAddress', deviceName='$deviceName', timestamp=$timestamp, PR=$PR, SpO2=$SpO2)"
+    }
+}
