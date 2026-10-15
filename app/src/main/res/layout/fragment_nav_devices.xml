@@ -8,8 +8,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:background="@drawable/topbar_corner"
+        android:layout_margin="4dp"
+        android:elevation="4dp">
 
         <TextView
             android:id="@+id/textView"
@@ -22,6 +25,7 @@
             android:textColor="?colorOnBackground"
             android:textSize="28sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,9 +36,9 @@
             android:background="#00000000"
             android:padding="12dp"
             android:src="@drawable/ic_reload"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

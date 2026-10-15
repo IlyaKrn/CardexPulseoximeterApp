@@ -34,6 +34,10 @@ class DeviceRepoImpl(private val context: Context, private val onPermissionNotGr
             onBluetoothNotEnabled()
             return
         }
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            onPermissionNotGranted(Manifest.permission.ACCESS_FINE_LOCATION)
+            return
+        }
         if(isReceiverRegistered) {
             context.unregisterReceiver(receiver)
             Log.i(this.javaClass.name, "receiver unregistered")
