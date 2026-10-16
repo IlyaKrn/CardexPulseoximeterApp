@@ -23,7 +23,7 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
     }
 
     companion object {
-        const val DATABASE_VERSION = 1
+        const val DATABASE_VERSION = 2
         const val DATABASE_NAME = "cardexpulseoximeterapp.db"
 
         const val MEASURE_TABLE_NAME = "measures"

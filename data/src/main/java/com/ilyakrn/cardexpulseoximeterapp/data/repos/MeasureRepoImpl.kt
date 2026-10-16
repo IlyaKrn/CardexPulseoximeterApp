@@ -38,7 +38,7 @@ class MeasureRepoImpl(private val context: Context) : MeasureRepo {
                 null,
                 null,
                 "${SQLiteHelper.MEASURE_COLUMN_TIMESTAMP} DESC",
-                "$pageSize, ${page*pageSize}"
+                "${page * pageSize}, $pageSize"
             )
             val measures = ArrayList<MeasureModel>()
             with(cursor) {
